@@ -1063,7 +1063,7 @@ uvc_error_t uvc_stream_open_ctrl(uvc_device_handle_t *devh, uvc_stream_handle_t 
     ret = uvc_claim_if(strmh->devh, strmh->stream_if->bInterfaceNumber);
   }
   if (ret != UVC_SUCCESS) {
-    UVC_DEBUG("Failed to claim stream interface: %d %d", strmh->stream_if->bInterfaceNumber);
+    UVC_DEBUG("Failed to claim stream interface: %d %d", ret, strmh->stream_if->bInterfaceNumber);
     goto fail;
   }
 
@@ -1322,7 +1322,7 @@ uvc_error_t uvc_stream_start(
   }
 
   if ( ret != UVC_SUCCESS && transfer_id >= 0 ) {
-    UVC_DEBUG("Will try to work with %zd transfers instead of %zd", transfer_id, strmh->number_of_transport_buffers);
+    UVC_DEBUG("Will try to work with %d transfers instead of %zd", transfer_id, strmh->number_of_transport_buffers);
     size_t new_number_of_transport_buffers = transfer_id;
 
     for ( ; transfer_id < strmh->number_of_transport_buffers; transfer_id++) {
