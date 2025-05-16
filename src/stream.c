@@ -1316,12 +1316,12 @@ uvc_error_t uvc_stream_start(
     } while (ret != UVC_SUCCESS && n_try < n_retry);
 
     if (ret != UVC_SUCCESS) {
-      UVC_DEBUG("libusb_submit_transfer failed: %d",ret);
+      UVC_DEBUG("libusb_submit_transfer failed: %s(%d)", libusb_strerror(ret), ret);
       break;
     }
   }
 
-  if ( ret != UVC_SUCCESS && transfer_id >= 0 ) {
+  if ( ret != UVC_SUCCESS && transfer_id > 0 ) {
     UVC_DEBUG("Will try to work with %d transfers instead of %zd", transfer_id, strmh->number_of_transport_buffers);
     size_t new_number_of_transport_buffers = transfer_id;
 
